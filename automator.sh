@@ -15,7 +15,8 @@ function test(){
 	done 
 }
 
-# first clear cache 
+# first clear cache
+adb shell am force-stop com.android.chrome
 for element in `adb shell su -c ls /data/user/0/com.android.chrome/`
 do
 	if [ "$element" != "lib" ] && [ "$element" != "shared_prefs" ]

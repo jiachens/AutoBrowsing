@@ -189,6 +189,9 @@ public class AutoBrowsingInstumentation {
                 urlBarInitial.click();
             }
             UiObject2 urlBar = mDevice.findObject(By.res(CHROME_PACKAGE, "url_bar"));
+            while (urlBar == null){
+                urlBar = mDevice.findObject(By.res(CHROME_PACKAGE, "url_bar"));
+            }
             urlBar.click();
             urlBar.setText(url.get(i));
             UiObject2 urlButton = mDevice.findObject(By.text(url.get(i)));

@@ -184,6 +184,8 @@ public class AutoBrowsingInstumentation {
         Log.d(TAG,"in actionEnterUrls()");
         int numUrl = UrlList.numberOfUrls();
         for (int i = 0; i < numUrl; i++) {
+            boolean flag = false;
+            int counter = 0;
             UiObject2 urlBarInitial = mDevice.findObject(By.res(CHROME_PACKAGE, "search_box_text"));
             if (urlBarInitial != null){
                 urlBarInitial.click();
@@ -198,7 +200,14 @@ public class AutoBrowsingInstumentation {
             urlButton.click();
             startOfEntering = (new Date()).getTime();
             UiObject2 progressBar = mDevice.findObject(By.clazz(ProgressBar.class));
-            boolean flag = false;
+            // in case the first time, it does not find the progress bar
+            while (progressBar == null) {
+                progressBar = mDevice.findObject(By.clazz(ProgressBar.class));
+                counter++;
+                if (counter >= 10){
+                    break;
+                }
+            }
             while (progressBar != null) {
                 flag = true;
                 progressBar = mDevice.findObject(By.clazz(ProgressBar.class));

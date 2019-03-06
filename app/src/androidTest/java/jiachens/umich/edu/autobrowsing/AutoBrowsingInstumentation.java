@@ -198,11 +198,17 @@ public class AutoBrowsingInstumentation {
             urlButton.click();
             startOfEntering = (new Date()).getTime();
             UiObject2 progressBar = mDevice.findObject(By.clazz(ProgressBar.class));
+            boolean flag = false;
             while (progressBar != null) {
+                flag = true;
                 progressBar = mDevice.findObject(By.clazz(ProgressBar.class));
             }
             endOfLoading = (new Date()).getTime();
-            Log.d(TAG, "PLT of " + url.get(i) + " is: " + String.valueOf(endOfLoading - startOfEntering));
+            if (flag) {
+                Log.d(TAG, "PLT of " + url.get(i) + " is: " + String.valueOf(endOfLoading - startOfEntering));
+            } else{
+                Log.d(TAG, "PLT of " + url.get(i) + " is: " + String.valueOf(-1));
+            }
         }
         return 0;
     }

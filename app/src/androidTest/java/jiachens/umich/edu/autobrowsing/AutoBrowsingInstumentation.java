@@ -60,13 +60,15 @@ public class AutoBrowsingInstumentation {
     File cacheFile;
     long startOfEntering;
     long endOfLoading;
+    long currentTime;
 
     public AutoBrowsingInstumentation(){
 
         url=new ArrayList<String>();
         urldeltat=new ArrayList<Integer>();
-        startOfEntering=-1;
+        startOfEntering= -1;
         endOfLoading = -1;
+        currentTime = -1;
     }
 
 
@@ -211,6 +213,11 @@ public class AutoBrowsingInstumentation {
             while (progressBar != null) {
                 flag = true;
                 progressBar = mDevice.findObject(By.clazz(ProgressBar.class));
+                currentTime = (new Date()).getTime();
+                if ((currentTime - startOfEntering) > 30000){
+                    flag = false;
+                    break;
+                }
             }
             endOfLoading = (new Date()).getTime();
             if (flag) {
@@ -221,6 +228,5 @@ public class AutoBrowsingInstumentation {
         }
         return 0;
     }
-
 
 }
